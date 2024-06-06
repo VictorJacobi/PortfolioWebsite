@@ -25,7 +25,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-flutter_driver:
-  sdk:
-    flutter
+
 
