@@ -37,6 +37,7 @@ workflows:
       email:
         recipients:
           - alabivictor015@gmail.com
+          - victorjacobi015@gmail.com
         notify:
           success: true
           failure: true
