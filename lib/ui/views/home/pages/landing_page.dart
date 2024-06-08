@@ -35,7 +35,7 @@ class LandingPage extends StatelessWidget {
                     repeat: true,
                     duration: const Duration(milliseconds: 200),
                     style: ktLargeTitle.copyWith(color: const Color(0xFFD5CF8D)),),
-                  Text('Software Engineer - Flutter|Dart|Firebase|git|JavaScript',
+                  Text('Software Engineer - Flutter|Dart|Firebase|git|JavaScript8',
                     style: ktBody1.copyWith(color: const Color(0xFFC3D8BC)),),
                 ],
               ),
