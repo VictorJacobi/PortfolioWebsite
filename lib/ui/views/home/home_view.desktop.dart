@@ -1,3 +1,5 @@
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:portfolio_website/gen/assets.gen.dart';
 import 'package:portfolio_website/ui/common/styles.dart';
 import 'package:portfolio_website/ui/common/ui_helpers.dart';
@@ -109,129 +111,140 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
   }
 }
 
-class FloatingPage extends StatelessWidget {
+class FloatingPage extends HookWidget {
   const FloatingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: screenWidth(context)*0.7,
-      height: screenHeight(context)-60,
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-            kc01,
-            Color(0xFF416433),
-            Color(0xFF537542),
-            Color(0xFF547C44),
-            Color(0xFF636E37),
-          ]),
-          border: Border(
-            top: BorderSide(
-                color: Color(0xFFCFE7C7),
-                width: 3
-            ),
-            left: BorderSide(
-                color: Color(0xFFCFE7C7),
-                width: 3
-            ),
-            right: BorderSide(
-                color: Color(0xFFCFE7C7),
-                width: 3
-            ),
+    final animationController = useAnimationController(duration: const Duration(seconds: 2));
+    return Animate().custom(
+      duration: 3.seconds,
+      begin: 0,
+      end: 1,
+      builder: (_,value,__)=>Container(
+        width: screenWidth(context)*0.7*value,
+        height: (screenHeight(context)-60)*value,
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              kc01,
+              Color(0xFF416433),
+              Color(0xFF537542),
+              Color(0xFF547C44),
+              Color(0xFF636E37),
+            ]),
+            border: Border(
+              top: BorderSide(
+                  color: Color(0xFFCFE7C7),
+                  width: 3
+              ),
+              left: BorderSide(
+                  color: Color(0xFFCFE7C7),
+                  width: 3
+              ),
+              right: BorderSide(
+                  color: Color(0xFFCFE7C7),
+                  width: 3
+              ),
+              bottom: BorderSide(
+                  color: Color(0xFFCFE7C7),
+                  width: 3
+              ),
 
-          )
-      ),
-      child:  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        color:  Color(0xFFFF8268),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text('J',style: ktCaption1.copyWith(color: Colors.white),),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Jacobi',style: ktCaption1.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text('Services',
-                      style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                    const SizedBox(width: 42,),
-                    Text('Projects',
-                      style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                    const SizedBox(width: 42,),
 
-                    Text('About',
-                      style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                    const SizedBox(width: 42,),
-                    Text('Contact Me',
-                      style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                  ],
-                ),
-                MaterialButton(onPressed: (){},
-                  padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
-                  color: const Color(0xFF4C5D3A),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(
-                        color:  Color(0xFF6A8455),
-                      )
-                  ),
-                  child: Row(
+            )
+        ),
+        child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Text('Download CV',
-                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                      const SizedBox(width: 4,),
-                      const Icon(Icons.file_download,color: Color(0xFFBCC2B5),)
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
+                          color:  Color(0xFFFF8268),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text('J',style: ktCaption1.copyWith(color: Colors.white),),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text('Jacobi',style: ktCaption1.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
+                      ),
                     ],
-                  ),)
-              ],),
-          ),
-          Expanded(
-            child: ScrollTransformView(
-              children: [
-                 ScrollTransformItem(
-                   builder: (offset) {
-                     return const LandingPage();
-                   }
-                 ),
-                ScrollTransformItem(
-                  builder: (offset) {
-                    return const ServicePage();
-                  }
-                ),
-                ScrollTransformItem(
-                  builder: (offset) {
-                    return const AboutPage();
-                  }
-                ),
-                ScrollTransformItem(
-                  builder: (offset) {
-                    return const ProjectPage();
-                  }
-                ),
+                  ),
+                  Row(
+                    children: [
+                      Text('Services',
+                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
+                      const SizedBox(width: 42,),
+                      Text('Projects',
+                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
+                      const SizedBox(width: 42,),
 
-              ],
+                      Text('About',
+                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
+                      const SizedBox(width: 42,),
+                      Text('Contact Me',
+                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
+                    ],
+                  ),
+                  MaterialButton(onPressed: (){},
+                    padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
+                    color: const Color(0xFF4C5D3A),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: const BorderSide(
+                          color:  Color(0xFF6A8455),
+                        )
+                    ),
+                    child: Row(
+                      children: [
+                        Text('Download CV',
+                          style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
+                        const SizedBox(width: 4,),
+                        const Icon(Icons.file_download,color: Color(0xFFBCC2B5),)
+                      ],
+                    ),)
+                ],),
             ),
-          ),
-        ],
+            Expanded(
+              child: ScrollTransformView(
+                children: [
+                  ScrollTransformItem(
+                      builder: (offset) {
+                        return const LandingPage();
+                      }
+                  ),
+                  ScrollTransformItem(
+                      builder: (offset) {
+                        return const ServicePage();
+                      }
+                  ),
+                  ScrollTransformItem(
+                      builder: (offset) {
+                        return const AboutPage();
+                      }
+                  ),
+                  ScrollTransformItem(
+                      builder: (offset) {
+                        return const ProjectPage();
+                      }
+                  ),
+
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    );
+    ).rotate().then().shake(duration: const Duration(milliseconds: 400));
   }
 }
 

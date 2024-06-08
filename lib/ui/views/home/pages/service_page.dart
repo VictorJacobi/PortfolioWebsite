@@ -21,7 +21,6 @@ class ServicePage extends StatelessWidget {
                 child: Text('Building Digital Product',
                   style: ktTitle3.copyWith(color: const Color(0xFFD4CD8B)),),
               ),
-
             ],
           ),
         ],
