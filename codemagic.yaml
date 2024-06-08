@@ -12,7 +12,7 @@ workflows:
         - ~/.gradle/caches
     triggering:
       events: # List the events that trigger builds
-        - pull_request
+        - push
     scripts:
       - echo "Testing Flutter app"
       - name: Flutter test
