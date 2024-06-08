@@ -18,19 +18,21 @@ workflows:
       - name: Flutter test
         script: flutter test
         ignore_failure: false
+      - name: Packages Get
+        script: flutter pub get
+      - name: Build Web
+        script: |
+          flutter build web --release
+          cd build/web
+          7z a -r ../web.zip ./*
       - name: Publish to Firebase Hosting
         script: |
          firebase deploy --token "$FIREBASE_TOKEN"
 
     artifacts:
-      - build/**/outputs/apk/**/*.apk                   # relative path for a project in root directory
-      - subfolder_name/build/**/outputs/apk/**/*.apk    # relative path for a project in subfolder
-      - build/**/outputs/**/*.aab
-      - build/**/outputs/**/mapping.txt
-      - build/ios/ipa/*.ipa
-      - build/macos/**/*.pkg
-      - /tmp/xcodebuild_logs/*.log
+      - build/web.zip
       - flutter_drive.log
+
     publishing:
       email:
         recipients:
