@@ -18,12 +18,10 @@ workflows:
       - name: Flutter test
         script: flutter test
         ignore_failure: true
-      - |
       - echo "Logging in to Firebase"
       - name: Flutter test
         script: firebase login
         ignore_failure: true
-      - |
     artifacts:
       - build/**/outputs/apk/**/*.apk                   # relative path for a project in root directory
       - subfolder_name/build/**/outputs/apk/**/*.apk    # relative path for a project in subfolder
