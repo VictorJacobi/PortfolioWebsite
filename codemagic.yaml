@@ -18,12 +18,10 @@ workflows:
       - name: Flutter test
         script: flutter test
         ignore_failure: false
-      - name: Write Google credentials
-        script: |
-          echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
       - name: Publish to Firebase Hosting
         script: |
-          firebase deploy --only hosting
+         firebase deploy --token "$FIREBASE_TOKEN"
+
     artifacts:
       - build/**/outputs/apk/**/*.apk                   # relative path for a project in root directory
       - subfolder_name/build/**/outputs/apk/**/*.apk    # relative path for a project in subfolder
