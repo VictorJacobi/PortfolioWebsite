@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:portfolio_website/gen/assets.gen.dart';
@@ -9,6 +11,7 @@ import 'package:portfolio_website/ui/views/home/pages/landing_page.dart';
 import 'package:portfolio_website/ui/views/home/pages/project_page.dart';
 import 'package:portfolio_website/ui/views/home/pages/service_page.dart';
 import 'package:portfolio_website/ui/views/home/widgets/services_widget.dart';
+import 'package:portfolio_website/ui/views/hover_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
@@ -55,7 +58,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                            height: 200,width: 200,
+                            height: 250,width: 250,
                           margin: const EdgeInsets.symmetric(vertical: 24),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -88,7 +91,13 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                         )
                       ],
                     ),
-                  ],
+                    Row(
+                      children: [
+                        Image.asset(Assets.pngs.badgeRemovebgPreview.path,height: 170,width: 170,fit: BoxFit.cover,),
+                        Image.asset(Assets.pngs.imagesRemovebgPreview.path,height: 150,width: 150,fit: BoxFit.cover,),
+                      ],
+                    ),
+                   ],
                 ),
               ),
               Container(
@@ -100,11 +109,18 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
               )
             ],
           ),
-          const Positioned(
+           Positioned(
             top: 60,
             left: 400,
-            child: FloatingPage(),
-          )
+            child: Animate().custom(
+              duration: 3.seconds,
+              begin: 0,
+              end: 1,
+              builder: (_,value,__)=>  FloatingPage(
+                width: screenWidth(context)*0.6*value,
+                height: (screenHeight(context)-60)*value,
+              ),).rotate().then().shake(duration: const Duration(milliseconds: 400)),
+           ),
         ],
       ),
     );
@@ -112,53 +128,54 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
 }
 
 class FloatingPage extends HookWidget {
-  const FloatingPage({super.key});
+  final double? width;
+  final double? height;
+  const FloatingPage({super.key,this.width,this.height});
 
   @override
   Widget build(BuildContext context) {
-    final animationController = useAnimationController(duration: const Duration(seconds: 2));
-    return Animate().custom(
-      duration: 3.seconds,
-      begin: 0,
-      end: 1,
-      builder: (_,value,__)=>Container(
-        width: screenWidth(context)*0.7*value,
-        height: (screenHeight(context)-60)*value,
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-              kc01,
-              Color(0xFF416433),
-              Color(0xFF537542),
-              Color(0xFF547C44),
-              Color(0xFF636E37),
-            ]),
-            border: Border(
-              top: BorderSide(
-                  color: Color(0xFFCFE7C7),
-                  width: 3
-              ),
-              left: BorderSide(
-                  color: Color(0xFFCFE7C7),
-                  width: 3
-              ),
-              right: BorderSide(
-                  color: Color(0xFFCFE7C7),
-                  width: 3
-              ),
-              bottom: BorderSide(
-                  color: Color(0xFFCFE7C7),
-                  width: 3
-              ),
+    final scrollController = useScrollController();
+    return Container(
+      width: width??screenWidth(context),
+      height: height??(screenHeight(context)),
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      decoration:  BoxDecoration(
+          gradient: const LinearGradient(colors: [
+            kc01,
+            Color(0xFF416433),
+            Color(0xFF537542),
+            Color(0xFF547C44),
+            Color(0xFF636E37),
+          ]),
+          border: getDeviceType(MediaQuery.sizeOf(context),)==DeviceScreenType.desktop?const Border(
+            top: BorderSide(
+                color: Color(0xFFCFE7C7),
+                width: 3
+            ),
+            left: BorderSide(
+                color: Color(0xFFCFE7C7),
+                width: 3
+            ),
+            right: BorderSide(
+                color: Color(0xFFCFE7C7),
+                width: 3
+            ),
+            bottom: BorderSide(
+                color: Color(0xFFCFE7C7),
+                width: 3
+            ),
 
 
-            )
-        ),
-        child:  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
+          ):
+             null
+      ),
+      child:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Visibility(
+            visible: width==null?true:width!>550,
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,23 +198,57 @@ class FloatingPage extends HookWidget {
                   ),
                   Row(
                     children: [
-                      Text('Services',
-                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                      const SizedBox(width: 42,),
-                      Text('Projects',
-                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                      const SizedBox(width: 42,),
+                      InkWell(
+                        onTap: (){
+                          scrollController.animateTo(200, duration: const Duration(seconds: 1),
+                              curve: Curves.linear);
+                        },
+                        child: HoverContainer(
+                          color: Colors.transparent,
+                          hoverColor: const Color(0xFF182C12),
+                          child: Text('About',
+                            style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5),fontSize: 14),),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          scrollController.animateTo(650, duration: const Duration(seconds: 1),
+                              curve: Curves.linear);
+                        },
+                        child: HoverContainer(
+                          color: Colors.transparent,
+                          hoverColor: const Color(0xFF182C12),
+                          child: Text('Services',
+                            style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5),fontSize: 14),),
+                        ),
+                      ),
+                      // const SizedBox(width: 42,),
+                      InkWell(
+                        onTap: (){
+                          scrollController.animateTo(800, duration: const Duration(seconds: 1),
+                              curve: Curves.linear);
+                        },
+                        child: HoverContainer(
+                          color: Colors.transparent,
+                          hoverColor: const Color(0xFF182C12),
+                          child: Text('Projects',
+                            style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5),fontSize: 14),),
+                        ),
+                      ),
+                      // const SizedBox(width: 42,),
 
-                      Text('About',
-                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
-                      const SizedBox(width: 42,),
-                      Text('Contact Me',
-                        style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5)),),
+                      // const SizedBox(width: 42,),
+                      HoverContainer(
+                        color: Colors.transparent,
+                        hoverColor: const Color(0xFF182C12),
+                        child: Text('Contact Me',
+                          style: ktCaption3.copyWith(color: const Color(0xFFBCC2B5),fontSize: 14),),
+                      ),
                     ],
                   ),
                   MaterialButton(onPressed: (){},
                     padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
-                    color: const Color(0xFF4C5D3A),
+                    color: const Color(0xFF182C12),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                         side: const BorderSide(
@@ -214,37 +265,36 @@ class FloatingPage extends HookWidget {
                     ),)
                 ],),
             ),
-            Expanded(
-              child: ScrollTransformView(
-                children: [
-                  ScrollTransformItem(
-                      builder: (offset) {
-                        return const LandingPage();
-                      }
-                  ),
-                  ScrollTransformItem(
-                      builder: (offset) {
-                        return const ServicePage();
-                      }
-                  ),
-                  ScrollTransformItem(
-                      builder: (offset) {
-                        return const AboutPage();
-                      }
-                  ),
-                  ScrollTransformItem(
-                      builder: (offset) {
-                        return const ProjectPage();
-                      }
-                  ),
+          ),
+          Expanded(
+            child: CustomScrollView(
+              controller: scrollController,
+              slivers: const [
+                // ScrollTransformItem(
+                //     builder: (offset) {
+                //       return const LandingPage();
+                //     }
+                // ),
+                SliverToBoxAdapter(
+                    child: LandingPage(),
+                ),
+                SliverToBoxAdapter(
+                    child: AboutPage(),
+                ),
+                 SliverToBoxAdapter(
+                    child: ServicePage(),
+                ),
+                 SliverToBoxAdapter(
+                    child: ProjectPage(),
+                ),
 
-                ],
-              ),
+
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    ).rotate().then().shake(duration: const Duration(milliseconds: 400));
+    );
   }
 }
 

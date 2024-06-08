@@ -12,11 +12,22 @@ import 'package:flutter/widgets.dart';
 class $AssetsPngsGen {
   const $AssetsPngsGen();
 
+  /// File path: assets/pngs/badge-removebg-preview.png
+  AssetGenImage get badgeRemovebgPreview =>
+      const AssetGenImage('assets/pngs/badge-removebg-preview.png');
+
+  /// File path: assets/pngs/badge.jpg
+  AssetGenImage get badge => const AssetGenImage('assets/pngs/badge.jpg');
+
   /// File path: assets/pngs/github.png
   AssetGenImage get github => const AssetGenImage('assets/pngs/github.png');
 
   /// File path: assets/pngs/google.png
   AssetGenImage get google => const AssetGenImage('assets/pngs/google.png');
+
+  /// File path: assets/pngs/images-removebg-preview.png
+  AssetGenImage get imagesRemovebgPreview =>
+      const AssetGenImage('assets/pngs/images-removebg-preview.png');
 
   /// File path: assets/pngs/images.png
   AssetGenImage get images => const AssetGenImage('assets/pngs/images.png');
@@ -36,8 +47,18 @@ class $AssetsPngsGen {
   AssetGenImage get x => const AssetGenImage('assets/pngs/x.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [github, google, images, linkedIn, profileImage1, profileImage2, x];
+  List<AssetGenImage> get values => [
+        badgeRemovebgPreview,
+        badge,
+        github,
+        google,
+        imagesRemovebgPreview,
+        images,
+        linkedIn,
+        profileImage1,
+        profileImage2,
+        x
+      ];
 }
 
 class Assets {
@@ -47,11 +68,9 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(this._assetName);
 
   final String _assetName;
-
-  final Size? size;
 
   Image image({
     Key? key,
