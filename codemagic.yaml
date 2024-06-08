@@ -4,8 +4,8 @@ workflows:
     instance_type: mac_mini_m1   # machine instance type
     max_build_duration: 60       # build duration in minutes (min 1, max 120)
     environment:
-      vars: # Define your public environment variables here
-        PUBLIC_ENV_VAR: "value here"
+      groups:
+        - firebase_credentials
       flutter: stable
     cache:
       cache_paths:
@@ -17,8 +17,7 @@ workflows:
       - echo "Testing Flutter app"
       - name: Flutter test
         script: flutter test
-        ignore_failure: true
-      - echo "Logging in to Firebase"
+        ignore_failure: false
       - name: Write Google credentials
         script: |
           echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
