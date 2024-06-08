@@ -11,7 +11,6 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         Stack(
           clipBehavior: Clip.none,
           children: [
@@ -37,7 +36,7 @@ class LandingPage extends StatelessWidget {
                     repeat: true,
                     duration: const Duration(milliseconds: 200),
                     style: ktLargeTitle.copyWith(color: const Color(0xFFD5CF8D)),),
-                  Text('SoftWare Engineer',
+                  Text('Software Engineer - Flutter|Dart|Firebase|git',
                     style: ktBody1.copyWith(color: const Color(0xFFC3D8BC)),),
                 ],
               ),
