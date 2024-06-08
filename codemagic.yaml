@@ -37,5 +37,8 @@ workflows:
       email:
         recipients:
           - alabivictor015@gmail.com
+        notify:
+          success: true
+          failure: true
       scripts:
         - echo 'Post-publish script'
