@@ -8,6 +8,7 @@ import 'home_view.mobile.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
+  static const String  id = '/home-view';
   const HomeView({super.key});
 
   @override
