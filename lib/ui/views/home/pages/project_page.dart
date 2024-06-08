@@ -14,7 +14,7 @@ class ProjectPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('SERVICES',
+              Text('PROJECTS',
                 style: ktBody2.copyWith(color: const Color(0xFFBACFB5)),),
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),

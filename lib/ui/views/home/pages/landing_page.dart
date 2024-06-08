@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_website/gen/assets.gen.dart';
 import 'package:portfolio_website/ui/common/styles.dart';
-import 'package:portfolio_website/ui/common/ui_helpers.dart';
 import 'package:typewritertext/v3/typewriter.dart';
 
 class LandingPage extends StatelessWidget {

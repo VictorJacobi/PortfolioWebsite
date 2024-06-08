@@ -1,9 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:portfolio_website/gen/assets.gen.dart';
-import 'package:portfolio_website/ui/common/app_colors.dart';
-import 'package:portfolio_website/ui/common/app_constants.dart';
 import 'package:portfolio_website/ui/common/styles.dart';
 import 'package:portfolio_website/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
