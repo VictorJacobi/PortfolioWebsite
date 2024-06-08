@@ -4,9 +4,38 @@ workflows:
     instance_type: mac_mini_m1   # machine instance type
     max_build_duration: 60       # build duration in minutes (min 1, max 120)
     environment:
+      vars: # Define your public environment variables here
+        PUBLIC_ENV_VAR: "value here"
       flutter: stable
     cache:
+      cache_paths:
+        - ~/.gradle/caches
     triggering:
+      events: # List the events that trigger builds
+        - push
     scripts:
+      - echo "Testing Flutter app"
+      - name: Flutter test
+        script: flutter test
+        ignore_failure: true
+      - |
+      - echo "Logging in to Firebase"
+      - name: Flutter test
+        script: firebase login
+        ignore_failure: true
+      - |
     artifacts:
+      - build/**/outputs/apk/**/*.apk                   # relative path for a project in root directory
+      - subfolder_name/build/**/outputs/apk/**/*.apk    # relative path for a project in subfolder
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - build/macos/**/*.pkg
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
     publishing:
+      email:
+        recipients:
+          - alabivictor015@gmail.com
+      scripts:
+        - echo 'Post-publish script'
